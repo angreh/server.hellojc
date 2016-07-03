@@ -3,12 +3,19 @@ package com.phillo.produtos.controller;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+
+import org.springframework.web.servlet.ModelAndView;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 
 public class Test {
 	public static void main(String[] args) {
+		testConnection("SELECT * FROM user");
+	}
+
+	public static void testConnection(String query) {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -22,7 +29,7 @@ public class Test {
 			String connectionPassword = "";
 			conn = (Connection) DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
 			stmt = (Statement) conn.createStatement();
-			rs = stmt.executeQuery("SELECT * FROM user");
+			rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				String id = rs.getString("id");
 				String firstName = rs.getString("name");

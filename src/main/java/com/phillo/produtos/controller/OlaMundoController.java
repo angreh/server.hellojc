@@ -49,17 +49,17 @@ public class OlaMundoController {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			// conn =
 			// DriverManager.getConnection("jdbc:mysql://localhost:3306/test?user=root&password=");
-			String connectionUrl = "jdbc:mysql://localhost:3306/test";
+			String connectionUrl = "jdbc:mysql://localhost:3306/piserver";
 			String connectionUser = "piola";
 			String connectionPassword = "";
 			conn = (Connection) DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
 			stmt = (Statement) conn.createStatement();
 			rs = stmt.executeQuery("SELECT * FROM java");
 			while (rs.next()) {
-				String id = rs.getString("id");
-				String firstName = rs.getString("name");
-				String lastName = rs.getString("number");
-				System.out.println("ID: " + id + ", First Name: " + firstName + ", Last Name: " + lastName);
+				Producto pro = new Producto();
+				pro.setId(rs.getInt("id"));
+				pro.setName(rs.getString("name"));
+				System.out.println("ID: " + pro.getId() + ", First Name: " + pro.getName());
 			}
 			return "hola";
 		} catch (Exception e) {

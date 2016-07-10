@@ -11,7 +11,8 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 
 public class Test {
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		testConnection("SELECT * FROM user");
 	}
 

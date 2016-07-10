@@ -72,10 +72,9 @@ public class MiniORM
      */
     public static List getAllG(Class file)
     {
-        try {
-            //faz conexão
-            String databaseURL = "jdbc:mysql://localhost:3306/test";
-            ConnectionSource conn = new JdbcConnectionSource(databaseURL,"root","12345678");
+        ConnectionSource conn = conn();
+        try
+        {
             //cria DAO
             Dao dao = DaoManager.createDao(conn, file);
 
@@ -87,6 +86,20 @@ public class MiniORM
             return genericList;
 
         } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static ConnectionSource conn()
+    {
+        try {
+            String databaseURL = "jdbc:mysql://localhost:3306/test";
+            ConnectionSource conn = new JdbcConnectionSource(databaseURL, "root", "12345678");
+            return conn;
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
         return null;

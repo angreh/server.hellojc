@@ -39,20 +39,52 @@ public class MiniORM
 
         System.out.println(hashJSON);
 
+        //Usando função genérica
+        List<ProductOL> prodG = getAllG(ProductOL.class);
+        String json = gson.toJson(prodG);
+
+        System.out.println(json);
     }
 
-    public static List<ProductOL> getAll()
-    {
+    public static List<ProductOL> getAll() {
         try {
             //faz conexão
             String databaseURL = "jdbc:mysql://localhost:3306/test";
-            ConnectionSource conn = new JdbcConnectionSource(databaseURL,"root","12345678");
+            ConnectionSource conn = new JdbcConnectionSource(databaseURL, "root", "12345678");
             //cria DAO
             Dao<ProductOL, String> productDAO = DaoManager.createDao(conn, ProductOL.class);
 
             //função que pega todos os produtos
             List<ProductOL> productOL = productDAO.queryForAll();
             return productOL;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Função genérica para retornar todos os objetos da tabela
+     *
+     * @param file a classe do tipo de objeto que deve ser buscado
+     * @return A lista de objetos resultantes da query
+     */
+    public static List getAllG(Class file)
+    {
+        try {
+            //faz conexão
+            String databaseURL = "jdbc:mysql://localhost:3306/test";
+            ConnectionSource conn = new JdbcConnectionSource(databaseURL,"root","12345678");
+            //cria DAO
+            Dao dao = DaoManager.createDao(conn, file);
+
+            //função que pega todos os itens
+            List genericList = dao.queryForAll();
+
+            conn.close();
+
+            return genericList;
 
         } catch (Exception e){
             e.printStackTrace();
